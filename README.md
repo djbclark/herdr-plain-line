@@ -1,36 +1,27 @@
 # Plain English line
 
-A local Herdr plugin. It opens a short popup and runs one of three existing commands.
+A local [Herdr](https://herdr.dev) plugin. It opens a short popup and runs one of three existing commands from a single plain-English line. Optional AI (off by default) can map other phrasing onto the same three actions after you confirm.
 
-A1. `rename this tab LABEL` and `rename tab LABEL` run `herdr tab rename`.
-A2. `rename this workspace LABEL` and `rename workspace LABEL` run `herdr workspace rename`.
-A3. `new workspace LABEL` and `create workspace LABEL` run `herdr workspace create --focus --label LABEL`.
+Upstream product idea: [herdrdev/herdr discussion 5861](https://github.com/herdrdev/herdr/discussions/5861). This repo is the working plugin; there is no upstream PR (djbclark is not a herdr maintainer).
+
+## Commands
+
+1. `rename this tab LABEL` / `rename tab LABEL` → `herdr tab rename`
+2. `rename this workspace LABEL` / `rename workspace LABEL` → `herdr workspace rename`
+3. `new workspace LABEL` / `create workspace LABEL` → `herdr workspace create --focus --label LABEL`
 
 The rest of the line is the label, so spaces stay in the name. A blank line closes the popup. Anything else prints these forms and waits for Enter, unless AI is enabled (below).
 
-The popup is a session-modal terminal. It is not a line drawn in the shell footer. Herdr does not give that process `HERDR_TAB_ID` or `HERDR_WORKSPACE_ID`. The script reads `workspace_id` and `tab_id` from `HERDR_PLUGIN_CONTEXT_JSON`. It uses `HERDR_BIN_PATH` when Herdr sets it, and `herdr` on `PATH` otherwise. `python3` must be on `PATH`. Popup placement has been in Herdr since 0.7.0. This machine's installed Herdr is 0.9.5.
-
-## Optional AI pass
-
-Deterministic forms never call a model. To map other plain English onto the same three actions:
-
-B1. Set `HERDR_PLAIN_LINE_AI=1` in the environment Herdr inherits (or export it before starting Herdr).
-B2. Reuse Goose credentials in `~/.config/goose/` (`GOOSE_PROVIDER` / `GOOSE_MODEL` / API key), same as BarnOwl `:goose`.
-B3. Optional model override: `HERDR_PLAIN_LINE_AI_MODEL`.
-B4. The popup shows a short plan and asks `y/N` before every AI-derived action. Model output outside the three-action allowlist is refused.
-
-Design notes: [`docs/AI_PASS.md`](docs/AI_PASS.md).
+The popup is a session-modal terminal, not a footer line. Herdr does not give that process `HERDR_TAB_ID` / `HERDR_WORKSPACE_ID`; the script reads `workspace_id` and `tab_id` from `HERDR_PLUGIN_CONTEXT_JSON`. It uses `HERDR_BIN_PATH` when set, else `herdr` on `PATH`. Needs `python3` on `PATH`. Popup placement exists since Herdr 0.7.0.
 
 ## Install
 
-Link it once. That registers the plugin for this user, in every session. It does not add a key:
-
 ```bash
-herdr plugin link /Users/djbclark/src/herdr-plain-line
+herdr plugin link /path/to/herdr-plain-line
 herdr plugin action invoke local.plain-line.open
 ```
 
-To put it on a key yourself, add this to your Herdr key config and pick the key:
+Optional keybind:
 
 ```toml
 [[keys.command]]
@@ -40,4 +31,38 @@ command = "local.plain-line.open"
 description = "plain english line"
 ```
 
-Remove the registration with `herdr plugin unlink local.plain-line`. That leaves this directory in place.
+Unlink with `herdr plugin unlink local.plain-line` (leaves this directory in place).
+
+## Optional AI pass
+
+Deterministic forms never call a model. Same lightweight Goose pattern as BarnOwl `:goose` (OpenAI-compatible chat + `~/.config/goose` credentials — not the Block Goose agent CLI).
+
+1. Set `HERDR_PLAIN_LINE_AI=1` in the environment Herdr inherits.
+2. Optional model override: `HERDR_PLAIN_LINE_AI_MODEL`.
+3. Non-literal lines go through `ai_helper.py`; the host allowlists only the three actions above and always asks `y/N` before running.
+
+Design notes: [`docs/AI_PASS.md`](docs/AI_PASS.md).
+
+## Tests
+
+```bash
+python3 -m unittest test_line.py test_ai_helper.py
+```
+
+## Upstream Herdr artifacts
+
+1. [Discussion 5861](https://github.com/herdrdev/herdr/discussions/5861) — plain-English command line (product framing).
+2. [Discussion 2283 comment](https://github.com/herdrdev/herdr/discussions/2283#discussioncomment-19459084) — related surface / naming notes (no branch links).
+3. [Discussion 1674](https://github.com/herdrdev/herdr/discussions/1674) — native destination-picker ideas (pane-move stays on installed plugins such as drovr; not implemented here).
+
+Fork experiments that touch the same problem space live on [djbclark/herdr](https://github.com/djbclark/herdr) (for example the [`command-surface`](https://github.com/djbclark/herdr/tree/command-surface) branch). They are not required to use this plugin.
+
+## Related djbclark Herdr repos
+
+| Repo | Role |
+| --- | --- |
+| [djbclark/herdr](https://github.com/djbclark/herdr) | Fork of [herdrdev/herdr](https://github.com/herdrdev/herdr) |
+| [herdr-plain-line](https://github.com/djbclark/herdr-plain-line) | This plugin |
+| [herdr-sleeper](https://github.com/djbclark/herdr-sleeper) | Sleep idle agent panes, wake later |
+| [herdr4paseo](https://github.com/djbclark/herdr4paseo) | Terminal UI to watch/steer a Paseo agent from a pane |
+| [paseo4herdr](https://github.com/djbclark/paseo4herdr) | Paseo plugin mirroring OMP agents that run in Herdr |
