@@ -38,8 +38,9 @@ Unlink with `herdr plugin unlink local.plain-line` (leaves this directory in pla
 Deterministic forms never call a model. Same lightweight Goose pattern as BarnOwl `:goose` (OpenAI-compatible chat + `~/.config/goose` credentials — not the Block Goose agent CLI).
 
 1. Set `HERDR_PLAIN_LINE_AI=1` in the environment Herdr inherits.
-2. Optional model override: `HERDR_PLAIN_LINE_AI_MODEL`.
-3. Non-literal lines go through `ai_helper.py`; the host allowlists only the three actions above and always asks `y/N` before running.
+2. Goose credentials in `~/.config/goose/` (`config.yaml` + `secrets.yaml`, mode `600`). On this Mac they match [pastebin.xvm.mit.edu](https://pastebin.xvm.mit.edu) (BarnOwl host): `rsync -a pastebin.xvm.mit.edu:.config/goose/{config.yaml,secrets.yaml} ~/.config/goose/`. Or inject `OPENROUTER_API_KEY` via `sudo-secretspec run`.
+3. Optional model override: `HERDR_PLAIN_LINE_AI_MODEL`.
+4. Non-literal lines go through `ai_helper.py`; the host allowlists only the three actions above and always asks `y/N` before running.
 
 Design notes: [`docs/AI_PASS.md`](docs/AI_PASS.md).
 
