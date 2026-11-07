@@ -110,7 +110,7 @@ Host rules (copy Goose.pm spirit):
 2. Add helper unit tests with a fake LLM (fixture JSON), parallel to barnowl `t/test_helper.py`.
 3. Add host tests: allowlist rejection, confirm gating, id missing, AI disabled.
 
-### Implementation sketch (files only; not written yet)
+### Implementation sketch (landed in-repo)
 
 1. `ai_helper.py` — adapted subset of barnowl `goose-helper.py` (config load, chat POST, `extract_json_response`, sanitizers, smaller system prompt tied to Herdr actions).
 2. `line.py` — after `unknown`, optional AI branch; confirm; map to existing `command_argv`.
