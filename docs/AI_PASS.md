@@ -1,9 +1,9 @@
-# AI pass — design (no implementation yet)
+# AI pass — design + implementation status
 
-Date: 2026-11-07  
+Date: 2026-11-07 (implemented same day)  
 Repo: [djbclark/herdr-plain-line](https://github.com/djbclark/herdr-plain-line)  
 Product intent: [herdrdev/herdr discussion 5861](https://github.com/herdrdev/herdr/discussions/5861)  
-v1 today: deterministic six forms in `line.py` (no model). This doc is the later iteration.
+v1: deterministic six forms in `line.py`. v2: optional AI via `ai_helper.py` when `HERDR_PLAIN_LINE_AI=1`.
 
 ## Goal
 
@@ -134,12 +134,12 @@ Host rules (copy Goose.pm spirit):
 2. **Block Goose / `goose run --recipe … --output-format json`** — full agent runtime; too heavy for a one-line popup. Reuse **credential file layout** only, not the CLI.
 3. Generic “herdr plugin + AI” GitHub hits (navigator, ccxray, jig worktree tools) — different problems (jump, badges, worktrees), not plain-English action mapping.
 
-## Open design choices (decide when implementing)
+## Open design choices (resolved for v2)
 
-1. Confirm **every** AI action vs only ambiguous/destructive ones (Goose splits read-only vs the rest; our three actions are all mutating → lean “always confirm” at first).
-2. Whether AI may propose multi-step plans (Goose allows `commands[]`) or **one** action only (safer for v1).
-3. Whether to grow allowlist (e.g. focus workspace, close tab) in the same pass or keep the three-command set.
-4. Shared Python module with barnowl vs duplicated trimmed helper.
+1. Confirm **every** AI action (all three are mutating).
+2. **One** action only (`action` + `label`, not `commands[]`).
+3. Keep the three-command allowlist.
+4. Copy-and-trim helper in-repo (`ai_helper.py`); no barnowl import.
 
 ## Success criteria
 

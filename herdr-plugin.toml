@@ -1,8 +1,8 @@
 id = "local.plain-line"
 name = "Plain English line"
-version = "0.1.0"
+version = "0.2.0"
 min_herdr_version = "0.7.0"
-description = "A popup line for renaming the current tab or workspace, or creating a workspace. No model calls."
+description = "A popup line for renaming the current tab or workspace, or creating a workspace. Optional AI via HERDR_PLAIN_LINE_AI=1."
 platforms = ["linux", "macos", "windows"]
 
 [[actions]]
@@ -16,5 +16,5 @@ id = "line"
 title = "Plain English"
 placement = "popup"
 width = "70%"
-height = 8
+height = 12
 command = ["python3", "line.py"]
