@@ -1,7 +1,7 @@
 # AI pass — design + implementation status
 
 Date: 2026-11-07 (implemented same day)  
-Repo: [djbclark/herdr-plain-line](https://github.com/djbclark/herdr-plain-line)  
+Repo: [frdminc/herdr-plain-line](https://github.com/frdminc/herdr-plain-line)  
 Product intent: [herdrdev/herdr discussion 5861](https://github.com/herdrdev/herdr/discussions/5861)  
 v1: deterministic six forms in `line.py`. v2: optional AI via `ai_helper.py` when `HERDR_PLAIN_LINE_AI=1`.
 

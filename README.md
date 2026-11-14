@@ -56,14 +56,14 @@ python3 -m unittest test_line.py test_ai_helper.py
 2. [Discussion 2283 comment](https://github.com/herdrdev/herdr/discussions/2283#discussioncomment-19459084) — related surface / naming notes (no branch links).
 3. [Discussion 1674](https://github.com/herdrdev/herdr/discussions/1674) — native destination-picker ideas (pane-move stays on installed plugins such as drovr; not implemented here).
 
-Fork experiments that touch the same problem space live on [djbclark/herdr](https://github.com/djbclark/herdr) (for example the [`command-surface`](https://github.com/djbclark/herdr/tree/command-surface) branch). They are not required to use this plugin.
+Fork experiments that touch the same problem space live on [frdminc/herdr](https://github.com/frdminc/herdr) (for example the [`command-surface`](https://github.com/frdminc/herdr/tree/command-surface) branch). They are not required to use this plugin.
 
 ## Related djbclark Herdr repos
 
 | Repo | Role |
 | --- | --- |
-| [djbclark/herdr](https://github.com/djbclark/herdr) | Fork of [herdrdev/herdr](https://github.com/herdrdev/herdr) |
-| [herdr-plain-line](https://github.com/djbclark/herdr-plain-line) | This plugin |
-| [herdr-sleeper](https://github.com/djbclark/herdr-sleeper) | Sleep idle agent panes, wake later |
-| [herdr4paseo](https://github.com/djbclark/herdr4paseo) | Terminal UI to watch/steer a Paseo agent from a pane |
+| [frdminc/herdr](https://github.com/frdminc/herdr) | Fork of [herdrdev/herdr](https://github.com/herdrdev/herdr) |
+| [herdr-plain-line](https://github.com/frdminc/herdr-plain-line) | This plugin |
+| [herdr-sleeper](https://github.com/frdminc/herdr-sleeper) | Sleep idle agent panes, wake later |
+| [herdr4paseo](https://github.com/frdminc/herdr4paseo) | Terminal UI to watch/steer a Paseo agent from a pane |
 | [paseo4herdr](https://github.com/djbclark/paseo4herdr) | Paseo plugin mirroring OMP agents that run in Herdr |
