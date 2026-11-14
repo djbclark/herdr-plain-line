@@ -198,7 +198,7 @@ def upstream_request(api_url: str, api_key: str, data: bytes) -> bytes:
     headers = {
         "Content-Type": "application/json",
         "Authorization": f"Bearer {api_key}",
-        "HTTP-Referer": "https://github.com/djbclark/herdr-plain-line",
+        "HTTP-Referer": "https://github.com/frdminc/herdr-plain-line",
         "X-Title": "herdr-plain-line",
     }
     req = urllib.request.Request(api_url, data=data, headers=headers, method="POST")
